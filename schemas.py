@@ -12,7 +12,7 @@ Model name is converted to lowercase for the collection name:
 """
 
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
 
 # Example schemas (replace with your own):
 
@@ -37,6 +37,21 @@ class Product(BaseModel):
     price: float = Field(..., ge=0, description="Price in dollars")
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
+
+# Caption generator schemas
+class Caption(BaseModel):
+    """
+    Captions collection schema
+    Collection name: "caption"
+    """
+    topic: str = Field(..., description="Main topic or keywords for the caption")
+    tone: str = Field("friendly", description="Tone/style: friendly, professional, witty, bold, luxury, casual, educational")
+    platform: str = Field("instagram", description="Target platform: instagram, tiktok, twitter, linkedin, youtube")
+    length: str = Field("medium", description="Caption length: short, medium, long")
+    include_emojis: bool = Field(True, description="Whether to include emojis")
+    include_hashtags: bool = Field(True, description="Whether to include hashtags")
+    variants: List[str] = Field(default_factory=list, description="Generated caption options")
+    favorite: bool = Field(False, description="User marked as favorite")
 
 # Add your own schemas here:
 # --------------------------------------------------
